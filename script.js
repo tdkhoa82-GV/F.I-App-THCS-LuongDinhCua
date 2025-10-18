@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const adminKhoiSelect = document.getElementById('admin_khoi');
     const adminGioitinhSelect = document.getElementById('admin_gioitinh');
     const currentTangMauDisplay = document.getElementById('current_tang_mau_display');
-    
+
     // Admin input fields for standard constants (using specific IDs like admin_bmi_x)
     const adminBmiX = document.getElementById('admin_bmi_x');
     const adminBmiSigma = document.getElementById('admin_bmi_sigma');
