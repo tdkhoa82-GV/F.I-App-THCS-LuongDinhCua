@@ -1,272 +1,202 @@
 /* style.css */
-
-/* Reset CSS cơ bản và Font */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    padding: 20px 0;
-    background-color: #f4f7f6; /* Nền nhẹ nhàng */
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Giữ nội dung ở trên cùng */
-    min-height: 100vh;
-}
-
-.container {
-    background-color: #ffffff;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 700px; /* Giới hạn chiều rộng cho desktop */
-    margin: 20px; /* Thêm margin để không chạm cạnh màn hình trên di động */
-    box-sizing: border-box; /* Bao gồm padding và border trong chiều rộng */
-}
-
-h1 {
-    color: #004c99; /* Xanh đậm */
-    text-align: center;
-    margin-bottom: 25px;
-    font-size: 1.8em;
-}
-
-h2 {
-    color: #007bff; /* Xanh dương */
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 10px;
-    margin-top: 30px;
-    margin-bottom: 20px;
-    font-size: 1.4em;
-}
-
-h3 {
-    color: #333;
-    margin-top: 25px;
-    margin-bottom: 15px;
-    font-size: 1.2em;
-}
-
-/* Các nhóm Input chung */
-.input-group {
-    margin-bottom: 15px;
-    display: flex;
-    flex-direction: column;
-}
-
-.input-group label {
-    margin-bottom: 5px;
-    font-weight: 500;
-    color: #555;
-    font-size: 0.95em;
-}
-
-.input-group input[type="number"],
-.input-group select {
-    padding: 10px 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1em;
-    width: 100%; /* Đảm bảo input chiếm đủ chiều rộng */
-    box-sizing: border-box;
-}
-
-.input-group input[type="number"]:focus,
-.input-group select:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    outline: none;
-}
-
-/* Sắp xếp input theo hàng (dùng cho Chiều cao/Cân nặng, Chạy bền) */
-.input-row {
-    display: flex;
-    gap: 15px; /* Khoảng cách giữa các cột */
-    margin-bottom: 15px;
-}
-
-.input-row .input-group {
-    flex: 1; /* Mỗi input-group chiếm đều không gian */
-    margin-bottom: 0; /* Loại bỏ margin-bottom mặc định */
-}
-
-/* Nút bấm */
-button {
-    display: block;
-    width: 100%;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.1em;
-    font-weight: bold;
-    color: white;
-    cursor: pointer;
-    margin-top: 25px;
-    transition: background-color 0.3s ease;
-}
-
-#btn_tinh_fi {
-    background-color: #007bff; /* Xanh dương */
-}
-
-#btn_tinh_fi:hover {
-    background-color: #0056b3;
-}
-
-/* Phần Kết quả */
-#ket-qua {
-    background-color: #e9f7ef; /* Nền xanh nhạt cho phần kết quả */
-    border-left: 5px solid #28a745;
     padding: 20px;
-    border-radius: 8px;
-    margin-top: 30px;
-}
-
-#ket-qua h2 {
-    color: #28a745; /* Xanh lá */
-    border-bottom: 1px solid #c3e6cb;
-    margin-top: 0;
-}
-
-#ket-qua p {
-    font-size: 1.1em;
+    background-color: #f4f7f6;
+    color: #333;
     line-height: 1.6;
 }
 
-#fi_score {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #004c99;
+.container {
+    max-width: 800px;
+    margin: 30px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Định dạng màu cho phân loại F.I. */
-.fi-red {
-    color: #dc3545; /* Đỏ */
-    font-weight: bold;
-}
-.fi-yellow {
-    color: #ffc107; /* Vàng */
-    font-weight: bold;
-}
-.fi-green {
-    color: #28a745; /* Xanh lá */
-    font-weight: bold;
+h1 {
+    text-align: center;
+    color: #0056b3;
+    margin-bottom: 30px;
+    font-size: 2.2em;
 }
 
-#goi_y_cai_thien {
-    list-style-type: disc; /* Dùng dấu chấm đầu dòng */
-    margin-left: 20px;
-    padding-left: 0;
-}
-
-#goi_y_cai_thien li {
-    margin-bottom: 8px;
-    font-size: 0.95em;
-}
-
-
-/* === Admin Section Styles === */
-.admin-section {
-    background-color: #e6f7ff; /* Nền xanh nhạt cho admin */
-    border-left: 5px solid #007bff;
-    padding: 20px;
-    border-radius: 8px;
-    margin-top: 40px;
-}
-
-.admin-section h2 {
-    color: #007bff; /* Xanh dương */
-    border-bottom: 1px solid #a4d8ff;
-    margin-top: 0;
-}
-
-.admin-section h3 {
-    text-align: center; /* Tiêu đề tầng mẫu giữa */
-    font-size: 1.1em;
-    margin-top: 20px;
+h2 {
+    color: #007bff;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+    margin-top: 25px;
     margin-bottom: 20px;
-    color: #004c99;
+    font-size: 1.6em;
 }
 
-/* Định dạng cho các nhóm input X_bar và Sigma trong admin */
-.admin-input-group {
-    display: flex;
-    flex-wrap: wrap; /* Cho phép xuống dòng trên màn hình nhỏ */
-    align-items: center;
-    gap: 10px;
+h3 {
+    color: #555;
+    margin-top: 20px;
     margin-bottom: 15px;
-    padding: 10px;
-    background-color: #f0f8ff; /* Nền hơi xanh cho mỗi nhóm chỉ số */
-    border-radius: 5px;
-    border: 1px solid #d0e8ff;
+    font-size: 1.3em;
 }
 
-.admin-input-group h4 {
-    margin: 0;
+.card {
+    background-color: #fdfdfd;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 25px;
+    border: 1px solid #dee2e6;
+}
+
+.input-group {
+    margin-bottom: 18px;
+    display: flex;
+    flex-wrap: wrap; /* Allows labels and inputs to wrap on smaller screens */
+    align-items: center;
+}
+
+.input-group label {
+    flex: 0 0 180px; /* Fixed width for labels */
+    font-weight: bold;
+    color: #495057;
+    margin-right: 15px;
+    margin-bottom: 5px; /* Spacing for wrap */
+}
+
+.input-group input[type="number"],
+.input-group input[type="text"],
+.input-group select {
+    flex: 1; /* Takes remaining space */
+    padding: 12px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
     font-size: 1em;
-    color: #333;
-    flex: 1 1 100%; /* Tiêu đề chiếm hết chiều rộng trên di động */
+    min-width: 150px; /* Ensure input doesn't get too small */
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-.admin-input-group input[type="number"] {
-    flex: 1 1 calc(50% - 10px); /* Mỗi input chiếm khoảng 50% chiều rộng */
-    padding: 8px 10px;
-    border: 1px solid #cceeff;
-    border-radius: 4px;
-    font-size: 0.95em;
-    box-sizing: border-box;
-    min-width: 120px; /* Đảm bảo không quá nhỏ */
+.input-group input[type="number"]:focus,
+.input-group input[type="text"]:focus,
+.input-group select:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
-/* Nút trong phần admin */
-.orange-button {
-    background-color: #ff9800; /* Màu cam */
+button {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 25px;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.result-card {
+    background-color: #e6f7ff;
+    border: 1px solid #99e0ff;
+}
+
+.result-card p {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.result-card p span {
+    font-weight: bold;
+    color: #0056b3;
+}
+
+.result-card ul {
+    list-style-type: disc;
+    padding-left: 25px;
+    margin-top: 15px;
+}
+
+.result-card ul li {
+    margin-bottom: 8px;
+    color: #495057;
+}
+
+/* F.I. category specific colors */
+.fi-green {
+    color: #28a745 !important; /* Green for good/high average */
+}
+
+.fi-yellow {
+    color: #ffc107 !important; /* Yellow for low average/needs improvement */
+}
+
+.fi-red {
+    color: #dc3545 !important; /* Red for weak/risk */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .input-group label {
+        flex: 0 0 100%; /* Labels take full width on small screens */
+        margin-bottom: 8px;
+    }
+    .input-group input[type="number"],
+    .input-group input[type="text"],
+    .input-group select {
+        min-width: unset; /* Remove min-width constraint */
+        width: 100%; /* Take full width */
+    }
+}
+
+/* Remove admin section styles */
+.admin-section {
+    display: none; /* Hide admin section */
+}
+
+#current_tang_mau_display {
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #007bff;
+    text-align: center;
+}
+
+.admin-input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
     margin-top: 20px;
 }
 
-.orange-button:hover {
-    background-color: #e68900;
+.admin-input-grid .input-group {
+    margin-bottom: 0;
 }
 
-.green-button {
-    background-color: #4CAF50; /* Màu xanh lá */
-    margin-top: 10px;
+.admin-input-grid label {
+    flex: unset;
+    margin-right: 10px;
+    min-width: unset;
 }
 
-.green-button:hover {
-    background-color: #45a049;
+.admin-input-grid input {
+    flex: unset;
+    width: 100%;
 }
 
-/* Responsive Design (Cho điện thoại) */
-@media (max-width: 768px) {
-    .container {
-        margin: 10px;
-        padding: 15px;
-    }
-
-    h1 {
-        font-size: 1.5em;
-    }
-
-    h2 {
-        font-size: 1.2em;
-    }
-
-    h3 {
-        font-size: 1.05em;
-    }
-
-    .input-row {
-        flex-direction: column; /* Xếp chồng các input-group trên màn hình nhỏ */
-        gap: 0;
-    }
-
-    .input-row .input-group {
-        margin-bottom: 15px;
-    }
-
-    .admin-input-group h4,
-    .admin-input-group input[type="number"] {
-        flex: 1 1 100%; /* Tất cả chiếm 100% chiều rộng trên màn hình nhỏ */
+@media (max-width: 576px) {
+    .admin-input-grid {
+        grid-template-columns: 1fr;
     }
 }
