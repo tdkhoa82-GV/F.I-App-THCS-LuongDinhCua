@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tính Chỉ số Thể lực F.I.</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon"> 
 </head>
 <body>
     <div class="container">
         <h1>Tính Chỉ số Thể lực F.I.</h1>
 
-        <section id="phan-thong-tin-chung">
+        <div class="card">
             <h2>1. Thông tin Phân tầng</h2>
             <div class="input-group">
                 <label for="khoi">Khối:</label>
@@ -27,86 +26,57 @@
                     <option value="Nu">Nữ</option>
                 </select>
             </div>
-        </section>
+        </div>
 
-        <section id="chi-so-do-luong">
+        <div class="card">
             <h2>2. Chỉ số Đo lường (Dữ liệu Thô)</h2>
+            
             <h3>Thể hình (Body Composition)</h3>
-            <div class="input-row">
-                <div class="input-group">
-                    <label for="chieu_cao">Chiều cao (cm):</label>
-                    <input type="number" id="chieu_cao" placeholder="Ví dụ: 165">
-                </div>
-                <div class="input-group">
-                    <label for="can_nang">Cân nặng (kg):</label>
-                    <input type="number" id="can_nang" placeholder="Ví dụ: 55">
-                </div>
+            <div class="input-group">
+                <label for="chieu_cao">Chiều cao (cm):</label>
+                <input type="number" id="chieu_cao" placeholder="Ví dụ: 165">
+            </div>
+            <div class="input-group">
+                <label for="can_nang">Cân nặng (kg):</label>
+                <input type="number" id="can_nang" placeholder="Ví dụ: 55">
             </div>
 
             <h3>Sức mạnh / Tốc độ</h3>
-            <div class="input-row">
-                <div class="input-group">
-                    <label for="bat_xa">Bật xa (cm):</label>
-                    <input type="number" id="bat_xa" placeholder="Ví dụ: 180">
-                </div>
-                <div class="input-group">
-                    <label for="chay_nhanh">Chạy nhanh (giây):</label>
-                    <input type="number" id="chay_nhanh" placeholder="Ví dụ: 12.5">
-                </div>
+            <div class="input-group">
+                <label for="bat_xa">Bật xa (cm):</label>
+                <input type="number" id="bat_xa" placeholder="Ví dụ: 180">
             </div>
-            <div class="input-group full-width">
+            <div class="input-group">
+                <label for="chay_nhanh">Chạy nhanh (giây):</label>
+                <input type="number" step="0.1" id="chay_nhanh" placeholder="Ví dụ: 12.5">
+            </div>
+            <div class="input-group">
                 <label for="gap_bung">Gập bụng (lần/30s):</label>
                 <input type="number" id="gap_bung" placeholder="Ví dụ: 30">
             </div>
 
             <h3>Sức bền / Linh hoạt</h3>
-            <div class="input-row">
-                <div class="input-group">
-                    <label for="chay_ben_phut">Chạy bền (phút):</label>
-                    <input type="number" id="chay_ben_phut" placeholder="Ví dụ: 8">
-                </div>
-                <div class="input-group">
-                    <label for="chay_ben_giay">Chạy bền (giây):</label>
-                    <input type="number" id="chay_ben_giay" placeholder="Ví dụ: 30">
-                </div>
+            <div class="input-group">
+                <label for="chay_ben">Chạy bền (phút:giây):</label>
+                <input type="text" id="chay_ben" placeholder="Ví dụ: 8:30" value="8:00">
             </div>
-            <div class="input-group full-width">
+            <div class="input-group">
                 <label for="gap_than">Đứng gập thân (cm):</label>
                 <input type="number" id="gap_than" placeholder="Ví dụ: 15">
             </div>
-        </section>
+            
+            <button id="btn_tinh_fi">Tính Chỉ số F.I.</button>
+        </div>
 
-        <button id="btn_tinh_fi">Tính Chỉ số F.I.</button>
-
-        <section id="ket-qua" style="display:none;">
+        <div id="ket-qua" class="card result-card" style="display: none;">
             <h2>3. Kết quả Chỉ số F.I.</h2>
-            <p>Chỉ số F.I. của học sinh là: <span id="fi_score"></span></p>
-            <p>Phân loại thể lực: <span id="phan_loai_fi"></span></p>
+            <p>Chỉ số F.I. của bạn: <span id="fi_score"></span></p>
+            <p>Phân loại: <span id="phan_loai_fi"></span></p>
             <h3>Gợi ý Cải thiện:</h3>
             <ul id="goi_y_cai_thien"></ul>
-        </section>
+        </div>
+    </div>
 
-        <section id="quan_ly_hang_so" class="admin-section">
-            <h2>QUẢN LÝ HẰNG SỐ THỐNG KÊ (GVCM)</h2>
-            
-            <div class="input-row">
-                <div class="input-group">
-                    <label for="admin_khoi">Chọn Khối:</label>
-                    <select id="admin_khoi">
-                        <option value="8">Khối 8</option>
-                        <option value="9">Khối 9</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label for="admin_gioitinh">Chọn Giới tính:</label>
-                    <select id="admin_gioitinh">
-                        <option value="Nam">Nam</option>
-                        <option value="Nu">Nữ</option>
-                    </select>
-                </div>
-            </div>
-            <h3 id="current_tang_mau_display">Tầng mẫu đang cập nhật: Khối 8 Nam</h3>
-
-            <div class="admin-input-group">
-                <h4>BMI (kg/m²)</h4>
-                <input type="number" id="admin_bmi_x" placeholder="X̄
+    <script src="script.js"></script>
+</body>
+</html>
