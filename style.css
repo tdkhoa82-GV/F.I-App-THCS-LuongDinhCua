@@ -269,5 +269,4 @@ button {
     .admin-input-group input[type="number"] {
         flex: 1 1 100%; /* Tất cả chiếm 100% chiều rộng trên màn hình nhỏ */
     }
-
 }
