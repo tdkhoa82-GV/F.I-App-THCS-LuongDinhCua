@@ -153,11 +153,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * Formats the Chay Ben input to MM:SS and converts to total seconds.
+     * Handles spaces as separators.
      * @param {HTMLInputElement} inputElement The input field for Chay Ben.
      * @returns {number} Total seconds.
      */
     function processChayBenInput(inputElement) {
         let value = inputElement.value.trim();
+        
+        // Replace space with colon for flexible input
+        value = value.replace(/\s/g, ':'); // Replace all spaces with a colon
+
         let minutes = 0;
         let seconds = 0;
 
@@ -166,13 +171,11 @@ document.addEventListener('DOMContentLoaded', () => {
             minutes = parseInt(parts[0]) || 0;
             seconds = parseInt(parts[1]) || 0;
         } else if (parts.length === 1) {
-            // If only one part, treat as minutes if it looks like a whole number
-            // Or as total seconds if it's a very long number (less likely for standard input)
             minutes = parseInt(parts[0]) || 0;
-            seconds = 0; // Default to 0 seconds
+            seconds = 0;
         }
 
-        // Cap seconds at 59
+        // Cap seconds at 59 and convert extra to minutes
         if (seconds >= 60) {
             minutes += Math.floor(seconds / 60);
             seconds %= 60;
