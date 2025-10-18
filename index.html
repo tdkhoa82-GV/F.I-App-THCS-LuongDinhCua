@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ứng dụng Đánh giá F.I. - THCS Lương Định Của</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <style>
+        /* Tạm thời thêm CSS cơ bản nếu chưa có styles.css */
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0 0 0 / 10%); }
+        .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        .input-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .input-group input, .input-group select { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        .input-group.full-width { grid-column: 1 / span 2; }
+        .result-box { margin-top: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9; }
+        .result-box h3 { margin-top: 0; border-bottom: 2px solid #333; padding-bottom: 5px; }
+        #diemFI { font-size: 1.5em; font-weight: bold; color: #007bff; }
+        .canh-bao { font-weight: bold; padding: 5px 10px; border-radius: 4px; display: inline-block; }
+        .binh-thuong { background-color: #d4edda; color: #155724; }
+        .can-cai-thien { background-color: #fff3cd; color: #856404; }
+        .rui-ro-yeu { background-color: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tính Chỉ số Thể lực F.I.</h1>
+
+        <div class="input-form">
+            <h2>1. Thông tin Phân tầng</h2>
+            <div class="input-grid">
+                <div class="input-group">
+                    <label for="khoi">Khối:</label>
+                    <select id="khoi" aria-label="Chọn Khối">
+                        <option value="8">Khối 8</option>
+                        <option value="9">Khối 9</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="gioitinh">Giới tính:</label>
+                    <select id="gioitinh" aria-label="Chọn Giới tính">
+                        <option value="2">Nam</option>
+                        <option value="3">Nữ</option>
+                    </select>
+                </div>
+            </div>
+            
+            <hr> 
+            <h2>2. Chỉ số Đo lường (Dữ liệu Thô)</h2>
+
+            <h3 class="input-group-title">Thể hình (Body Composition)</h3>
+            <div class="input-grid">
+                <div class="input-group">
+                    <label for="chieuCao">Chiều cao (cm):</label>
+                    <input type="number" id="chieuCao" placeholder="Ví dụ: 165.5">
+                </div>
+                <div class="input-group">
+                    <label for="canNang">Cân nặng (kg):</label>
+                    <input type="number" id="canNang" placeholder="Ví dụ: 52.0">
+                </div>
+            </div>
+
+            <h3 class="input-group-title">Sức mạnh / Tốc độ</h3>
+            <div class="input-grid">
+                <div class="input-group">
+                    <label for="batXa">Bật xa (cm):</label>
+                    <input type="number" id="batXa" placeholder="195">
+                </div>
+                <div class="input-group">
+                    <label for="chayNhanh">Chạy nhanh 60m (giây):</label>
+                    <input type="number" id="chayNhanh" placeholder="9.20">
+                </div>
+                <div class="input-group full-width"> 
+                    <label for="gapBung">Gập bụng (lần/30s):</label>
+                    <input type="number" id="gapBung" placeholder="45">
+                </div>
+            </div>
+
+            <h3 class="input-group-title">Sức bền / Linh hoạt</h3>
+            <div class="input-grid">
+                <div class="input-group">
+                    <label for="chayBen">Chạy bền (phút:giây):</label>
+                    <input type="text" id="chayBen" placeholder="6:40 (Dùng dấu hai chấm)">
+                </div>
+                <div class="input-group">
+                    <label for="gapThan">Đứng gập thân (cm):</label>
+                    <input type="number" id="gapThan" placeholder="14.5">
+                </div>
+            </div>
+        </div> 
+        
+        <button onclick="tinhChiSoFI()" style="width: 100%; margin-top: 15px; background-color: #00bcd4; font-size: 1.1em; padding: 10px;">Tính Chỉ số F.I. (Nhấn để Tính hoặc Tính lại)</button>
+
+
+        <div class="result-box">
+            <h3>KẾT QUẢ ĐÁNH GIÁ</h3>
+            <p>Chỉ số F.I. Tổng hợp: <span id="diemFI">...</span></p>
+            <p>Cảnh báo Thể lực: <span id="canhBao" class="binh-thuong">...</span></p>
+        </div>
+        
+        <div class="result-box" id="goiY">
+            <h3>KHUYẾN NGHỊ CẢI THIỆN (AI MÔ PHỎNG)</h3>
+            <p>Đang chờ phân tích...</p>
+        </div> 
+        
+    </div>
+    
+    <div class="container" style="margin-top: 30px; background-color: #e0f7fa;">
+        <h2>QUẢN LÝ HẰNG SỐ THỐNG KÊ (GVCM)</h2>
+        <p>Phần này chỉ dành cho Tổ trưởng chuyên môn để cập nhật chuẩn.</p>
+        
+        <h3 class="input-group-title">Tầng 8 Nam (82)</h3>
+        <div class="input-grid">
+            <div class="input-group">
+                <label for="xBar_82_BMI">X̄ BMI (8 Nam):</label>
+                <input type="number" id="xBar_82_BMI" placeholder="Trung bình X̄">
+            </div>
+            <div class="input-group">
+                <label for="sigma_82_BMI">σ BMI (8 Nam):</label>
+                <input type="number" id="sigma_82_BMI" placeholder="Độ lệch chuẩn σ">
+            </div>
+            </div>
+
+        <button onclick="luuHangSo()" style="background-color: #ff9800;">Lưu & Cập Nhật Chuẩn (Sẽ Ghi nhớ)</button>
+        <button onclick="taiHangSoDaLuu()" style="background-color: #4CAF50; margin-top: 10px;">Tải Hằng Số Đã Lưu Lên Form</button>
+    </div>
+
+    <script src="script.js"></script> 
+</body>
+</html>

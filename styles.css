@@ -1,0 +1,133 @@
+/* -------------------------------------- */
+/* PHẦN CHUNG: Màu sắc Hiện đại và Bố cục Trang */
+/* -------------------------------------- */
+body {
+    font-family: 'Times New Roman', serif;
+    background-color: #f4f4f9; /* Nền ngà nhạt */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding-bottom: 50px; 
+}
+.container {
+    width: 90%; 
+    max-width: 600px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Bóng đổ nhẹ */
+    border-radius: 8px;
+    margin-top: 20px;
+    overflow-x: hidden; /* QUAN TRỌNG: Ngăn cuộn ngang */
+}
+h1, h2 {
+    text-align: center;
+    color: #333;
+}
+hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 15px 0;
+}
+
+/* -------------------------------------- */
+/* BỐ CỤC CHÍNH (GRID LAYOUT) - KHẮC PHỤC TRÀN LỀ */
+/* -------------------------------------- */
+.input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Chia thành 2 cột bằng nhau */
+    gap: 15px 10px; /* Khoảng cách giữa các ô */
+    margin-bottom: 20px;
+}
+
+/* Quy tắc cho chỉ số chiếm trọn hàng ngang (Ví dụ: Gập bụng) */
+.full-width {
+    grid-column: 1 / 3; 
+}
+
+.input-form label {
+    display: block; 
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 0.95em;
+}
+
+/* -------------------------------------- */
+/* ĐỊNH DẠNG INPUT VÀ NÚT BẤM */
+/* -------------------------------------- */
+.input-form input, 
+.input-form select,
+button {
+    width: 100%; /* Đảm bảo input và button chiếm 100% của container cha */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* RẤT QUAN TRỌNG: Giúp fix lỗi tràn lề */
+}
+
+/* Căn chỉnh select box (Khối, Giới tính) */
+.input-form select {
+    width: 48%; 
+    display: inline-block;
+    margin-right: 1%;
+}
+
+.input-group-title {
+    color: #00bcd4; /* Màu Teal làm màu chủ đạo */
+    margin-top: 20px;
+    margin-bottom: 5px;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 5px;
+    font-size: 1.1em;
+    text-align: left; 
+}
+
+button {
+    background-color: #00bcd4; /* Màu Teal */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1em;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0097a7;
+}
+
+/* -------------------------------------- */
+/* PHẦN KẾT QUẢ VÀ CẢNH BÁO */
+/* -------------------------------------- */
+.result-box {
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 8px;
+    text-align: center;
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+}
+
+/* Màu Cảnh báo (Tuân thủ chuẩn mực) */
+.canh-bao {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: inline-block;
+}
+.rui-ro-yeu { 
+    background-color: #ffcccc; 
+    color: #cc0000;
+}
+.can-cai-thien { 
+    background-color: #ffebcc; 
+    color: #ff8c00;
+}
+.binh-thuong { 
+    background-color: #ccffcc; 
+    color: #008000;
+}
