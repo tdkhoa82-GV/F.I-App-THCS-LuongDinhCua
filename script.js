@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Fixed standard constants (no admin UI to modify)
-    // These are example values. You should replace them with your actual calculated X_bar and Sigma.
+    // These are example values. You_should replace them with your actual calculated X_bar and Sigma.
     const standardConstants = {
         '8_Nam': {
             bmi_x: 20.5, bmi_sigma: 2.5,
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function processChayBenInput(inputElement) {
         let value = inputElement.value.trim();
-        
+
         // Replace space with colon for flexible input
         value = value.replace(/\s/g, ':'); // Replace all spaces with a colon
 
