@@ -151,29 +151,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === 4. Helper for Chay Ben Input (phut:giay) ===
 
-    /**
+/**
      * Formats the Chay Ben input to MM:SS and converts to total seconds.
-     * Handles spaces as separators.
+     * Handles multiple spaces/colons as separators.
      * @param {HTMLInputElement} inputElement The input field for Chay Ben.
      * @returns {number} Total seconds.
      */
     function processChayBenInput(inputElement) {
         let value = inputElement.value.trim();
+        
+        // Replace all non-digit characters (except for the first colon) with a single colon, then clean up multiple colons
+        // Example: "8   30" -> "8:30"
+        // Example: "8..30" -> "8:30"
+        // Example: "8: :30" -> "8:30"
+        value = value.replace(/[^0-9:]+/g, ':'); // Replace any sequence of non-digit, non-colon with a single colon
+        value = value.replace(/:{2,}/g, ':');   // Replace multiple colons with a single colon
+        value = value.replace(/^:/, '');        // Remove leading colon if any
+        value = value.replace(/:$/, '');        // Remove trailing colon if any
 
-        // Replace space with colon for flexible input
-        value = value.replace(/\s/g, ':'); // Replace all spaces with a colon
 
         let minutes = 0;
         let seconds = 0;
 
         const parts = value.split(':');
-        if (parts.length === 2) {
-            minutes = parseInt(parts[0]) || 0;
-            seconds = parseInt(parts[1]) || 0;
-        } else if (parts.length === 1) {
-            minutes = parseInt(parts[0]) || 0;
+        
+        // Filter out empty strings from parts array, so ["8", "", "", "30"] becomes ["8", "30"]
+        const cleanParts = parts.filter(part => part !== '');
+
+        if (cleanParts.length === 2) {
+            minutes = parseInt(cleanParts[0]) || 0;
+            seconds = parseInt(cleanParts[1]) || 0;
+        } else if (cleanParts.length === 1) {
+            minutes = parseInt(cleanParts[0]) || 0;
             seconds = 0;
         }
+        // If cleanParts.length is 0 or > 2, minutes and seconds will remain 0
 
         // Cap seconds at 59 and convert extra to minutes
         if (seconds >= 60) {
@@ -185,7 +197,6 @@ document.addEventListener('DOMContentLoaded', () => {
         inputElement.value = `${String(minutes).padStart(1, '0')}:${String(seconds).padStart(2, '0')}`;
         return (minutes * 60) + seconds;
     }
-
     chayBenInput.addEventListener('blur', () => { // Use 'blur' event to format on leaving the field
         processChayBenInput(chayBenInput);
     });
@@ -268,3 +279,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Chay Ben input format
     processChayBenInput(chayBenInput);
 });
+
