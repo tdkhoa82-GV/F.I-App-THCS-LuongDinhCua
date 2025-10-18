@@ -8,8 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const batXaInput = document.getElementById('bat_xa');
     const chayNhanhInput = document.getElementById('chay_nhanh');
     const gapBungInput = document.getElementById('gap_bung');
-    const chayBenPhutInput = document.getElementById('chay_ben_phut');
-    const chayBenGiayInput = document.getElementById('chay_ben_giay');
+    const chayBenInput = document.getElementById('chay_ben'); // Unified input for Chay Ben (phut:giay)
     const gapThanInput = document.getElementById('gap_than');
     const btnTinhFi = document.getElementById('btn_tinh_fi');
 
@@ -19,29 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const phanLoaiFiSpan = document.getElementById('phan_loai_fi');
     const goiYCaiThienUl = document.getElementById('goi_y_cai_thien');
 
-    // Admin section elements (Manage Constants)
-    const adminKhoiSelect = document.getElementById('admin_khoi');
-    const adminGioitinhSelect = document.getElementById('admin_gioitinh');
-    const currentTangMauDisplay = document.getElementById('current_tang_mau_display');
-
-    // Admin input fields for standard constants (using specific IDs like admin_bmi_x)
-    const adminBmiX = document.getElementById('admin_bmi_x');
-    const adminBmiSigma = document.getElementById('admin_bmi_sigma');
-    const adminBatxaX = document.getElementById('admin_batxa_x');
-    const adminBatxaSigma = document.getElementById('admin_batxa_sigma');
-    const adminChayNhanhX = document.getElementById('admin_chaynhanh_x');
-    const adminChayNhanhSigma = document.getElementById('admin_chaynhanh_sigma');
-    const adminGapBungX = document.getElementById('admin_gapbung_x');
-    const adminGapBungSigma = document.getElementById('admin_gapbung_sigma');
-    const adminChayBenX = document.getElementById('admin_chayben_x');
-    const adminChayBenSigma = document.getElementById('admin_chayben_sigma');
-    const adminGapThanX = document.getElementById('admin_gapthan_x');
-    const adminGapThanSigma = document.getElementById('admin_gapthan_sigma');
-
-    // Admin buttons
-    const btnLuuCapNhatChuan = document.getElementById('btn_luu_cap_nhat_chuan');
-    const btnTaiHangSoDaLuu = document.getElementById('btn_tai_hang_so_da_luu');
-
     // === 2. Global Variables and Constants ===
     const TRONG_SO = {
         THE_HINH: 0.2, // BMI
@@ -49,8 +25,42 @@ document.addEventListener('DOMContentLoaded', () => {
         SUC_BEN: 0.4   // Chạy bền, Gập thân
     };
 
-    // Store all standard constants by key 'Khoi_Gioitinh'
-    let standardConstants = {};
+    // Fixed standard constants (no admin UI to modify)
+    // These are example values. You should replace them with your actual calculated X_bar and Sigma.
+    const standardConstants = {
+        '8_Nam': {
+            bmi_x: 20.5, bmi_sigma: 2.5,
+            batxa_x: 185, batxa_sigma: 15,
+            chaynhanh_x: 13.0, chaynhanh_sigma: 1.2,
+            gapbung_x: 28, gapbung_sigma: 5,
+            chayben_x: 510, chayben_sigma: 30, // in seconds (8:30 = 510s)
+            gapthan_x: 18, gapthan_sigma: 3
+        },
+        '8_Nu': {
+            bmi_x: 19.8, bmi_sigma: 2.2,
+            batxa_x: 165, batxa_sigma: 12,
+            chaynhanh_x: 14.5, chaynhanh_sigma: 1.5,
+            gapbung_x: 25, gapbung_sigma: 4,
+            chayben_x: 600, chayben_sigma: 40, // in seconds (10:00 = 600s)
+            gapthan_x: 22, gapthan_sigma: 4
+        },
+        '9_Nam': {
+            bmi_x: 21.0, bmi_sigma: 2.4,
+            batxa_x: 195, batxa_sigma: 16,
+            chaynhanh_x: 12.5, chaynhanh_sigma: 1.1,
+            gapbung_x: 30, gapbung_sigma: 6,
+            chayben_x: 480, chayben_sigma: 28, // in seconds (8:00 = 480s)
+            gapthan_x: 20, gapthan_sigma: 3.5
+        },
+        '9_Nu': {
+            bmi_x: 20.2, bmi_sigma: 2.1,
+            batxa_x: 175, batxa_sigma: 13,
+            chaynhanh_x: 14.0, chaynhanh_sigma: 1.4,
+            gapbung_x: 28, gapbung_sigma: 5,
+            chayben_x: 570, chayben_sigma: 35, // in seconds (9:30 = 570s)
+            gapthan_x: 24, gapthan_sigma: 4.5
+        }
+    };
 
     // === 3. Core Functions ===
 
@@ -139,128 +149,54 @@ document.addEventListener('DOMContentLoaded', () => {
         return recommendations;
     }
 
-    // === 4. Admin Section Logic (Manage Standard Constants) ===
+    // === 4. Helper for Chay Ben Input (phut:giay) ===
 
     /**
-     * Loads standard constants from localStorage. If none, initializes with default values.
+     * Formats the Chay Ben input to MM:SS and converts to total seconds.
+     * @param {HTMLInputElement} inputElement The input field for Chay Ben.
+     * @returns {number} Total seconds.
      */
-    function loadStandardConstants() {
-        const storedConstants = localStorage.getItem('standardConstants');
-        if (storedConstants) {
-            standardConstants = JSON.parse(storedConstants);
-        } else {
-            // Initialize with default values if nothing saved (Example values for all 4 tầng mẫu)
-            // These are example values. You should replace them with your actual calculated X_bar and Sigma.
-            standardConstants = {
-                '8_Nam': {
-                    bmi_x: 20.5, bmi_sigma: 2.5,
-                    batxa_x: 185, batxa_sigma: 15,
-                    chaynhanh_x: 13.0, chaynhanh_sigma: 1.2,
-                    gapbung_x: 28, gapbung_sigma: 5,
-                    chayben_x: 510, chayben_sigma: 30, // in seconds (8:30 = 510s)
-                    gapthan_x: 18, gapthan_sigma: 3
-                },
-                '8_Nu': {
-                    bmi_x: 19.8, bmi_sigma: 2.2,
-                    batxa_x: 165, batxa_sigma: 12,
-                    chaynhanh_x: 14.5, chaynhanh_sigma: 1.5,
-                    gapbung_x: 25, gapbung_sigma: 4,
-                    chayben_x: 600, chayben_sigma: 40, // in seconds (10:00 = 600s)
-                    gapthan_x: 22, gapthan_sigma: 4
-                },
-                '9_Nam': {
-                    bmi_x: 21.0, bmi_sigma: 2.4,
-                    batxa_x: 195, batxa_sigma: 16,
-                    chaynhanh_x: 12.5, chaynhanh_sigma: 1.1,
-                    gapbung_x: 30, gapbung_sigma: 6,
-                    chayben_x: 480, chayben_sigma: 28, // in seconds (8:00 = 480s)
-                    gapthan_x: 20, gapthan_sigma: 3.5
-                },
-                '9_Nu': {
-                    bmi_x: 20.2, bmi_sigma: 2.1,
-                    batxa_x: 175, batxa_sigma: 13,
-                    chaynhanh_x: 14.0, chaynhanh_sigma: 1.4,
-                    gapbung_x: 28, gapbung_sigma: 5,
-                    chayben_x: 570, chayben_sigma: 35, // in seconds (9:30 = 570s)
-                    gapthan_x: 24, gapthan_sigma: 4.5
-                }
-            };
+    function processChayBenInput(inputElement) {
+        let value = inputElement.value.trim();
+        let minutes = 0;
+        let seconds = 0;
+
+        const parts = value.split(':');
+        if (parts.length === 2) {
+            minutes = parseInt(parts[0]) || 0;
+            seconds = parseInt(parts[1]) || 0;
+        } else if (parts.length === 1) {
+            // If only one part, treat as minutes if it looks like a whole number
+            // Or as total seconds if it's a very long number (less likely for standard input)
+            minutes = parseInt(parts[0]) || 0;
+            seconds = 0; // Default to 0 seconds
         }
+
+        // Cap seconds at 59
+        if (seconds >= 60) {
+            minutes += Math.floor(seconds / 60);
+            seconds %= 60;
+        }
+
+        // Format back to MM:SS
+        inputElement.value = `${String(minutes).padStart(1, '0')}:${String(seconds).padStart(2, '0')}`;
+        return (minutes * 60) + seconds;
     }
 
-    /**
-     * Updates the admin UI fields with constants for the currently selected grade/gender.
-     */
-    function updateAdminUI() {
-        const selectedKhoi = adminKhoiSelect.value;
-        const selectedGioitinh = adminGioitinhSelect.value;
-        const currentTangMauKey = `${selectedKhoi}_${selectedGioitinh}`;
+    chayBenInput.addEventListener('blur', () => { // Use 'blur' event to format on leaving the field
+        processChayBenInput(chayBenInput);
+    });
 
-        currentTangMauDisplay.textContent = `Tầng mẫu đang cập nhật: Khối ${selectedKhoi} ${selectedGioitinh}`;
-
-        // Get constants for the current selected tang mau, or an empty object if not found
-        const constants = standardConstants[currentTangMauKey] || {};
-
-        // Update the input fields with loaded constants, or empty if not defined
-        adminBmiX.value = constants.bmi_x !== undefined ? constants.bmi_x : '';
-        adminBmiSigma.value = constants.bmi_sigma !== undefined ? constants.bmi_sigma : '';
-        adminBatxaX.value = constants.batxa_x !== undefined ? constants.batxa_x : '';
-        adminBatxaSigma.value = constants.batxa_sigma !== undefined ? constants.batxa_sigma : '';
-        adminChayNhanhX.value = constants.chaynhanh_x !== undefined ? constants.chaynhanh_x : '';
-        adminChayNhanhSigma.value = constants.chaynhanh_sigma !== undefined ? constants.chaynhanh_sigma : '';
-        adminGapBungX.value = constants.gapbung_x !== undefined ? constants.gapbung_x : '';
-        adminGapBungSigma.value = constants.gapbung_sigma !== undefined ? constants.gapbung_sigma : '';
-        adminChayBenX.value = constants.chayben_x !== undefined ? constants.chayben_x : '';
-        adminChayBenSigma.value = constants.chayben_sigma !== undefined ? constants.chayben_sigma : '';
-        adminGapThanX.value = constants.gapthan_x !== undefined ? constants.gapthan_x : '';
-        adminGapThanSigma.value = constants.gapthan_sigma !== undefined ? constants.gapthan_sigma : '';
-    }
-
-    /**
-     * Saves the entered constants for the current grade/gender to localStorage.
-     */
-    function LuuVaCapNhatChuan() {
-        const selectedKhoi = adminKhoiSelect.value;
-        const selectedGioitinh = adminGioitinhSelect.value;
-        const currentTangMauKey = `${selectedKhoi}_${selectedGioitinh}`;
-
-        // Read values from admin input fields
-        const newConstants = {
-            bmi_x: parseFloat(adminBmiX.value) || 0,
-            bmi_sigma: parseFloat(adminBmiSigma.value) || 0,
-            batxa_x: parseFloat(adminBatxaX.value) || 0,
-            batxa_sigma: parseFloat(adminBatxaSigma.value) || 0,
-            chaynhanh_x: parseFloat(adminChayNhanhX.value) || 0,
-            chaynhanh_sigma: parseFloat(adminChayNhanhSigma.value) || 0,
-            gapbung_x: parseFloat(adminGapBungX.value) || 0,
-            gapbung_sigma: parseFloat(adminGapBungSigma.value) || 0,
-            chayben_x: parseFloat(adminChayBenX.value) || 0,
-            chayben_sigma: parseFloat(adminChayBenSigma.value) || 0,
-            gapthan_x: parseFloat(adminGapThanX.value) || 0,
-            gapthan_sigma: parseFloat(adminGapThanSigma.value) || 0,
-        };
-
-        // Store new constants for the specific tang mau
-        standardConstants[currentTangMauKey] = newConstants;
-
-        // Save the entire standardConstants object to localStorage
-        localStorage.setItem('standardConstants', JSON.stringify(standardConstants));
-
-        alert('Hằng số chuẩn đã được lưu và cập nhật cho ' + currentTangMauKey);
-    }
-
-    /**
-     * Handler for the main F.I. calculation button.
-     */
+    // === 5. Event Listener for F.I. Calculation Button ===
     btnTinhFi.addEventListener('click', () => {
         const selectedKhoi = khoiSelect.value;
         const selectedGioitinh = gioitinhSelect.value;
         const currentTangMauKey = `${selectedKhoi}_${selectedGioitinh}`;
         const constants = standardConstants[currentTangMauKey];
 
-        // Validate if constants for the selected tang mau exist
+        // Validate if constants for the selected tang mau exist (should always exist with fixed constants)
         if (!constants || Object.keys(constants).length === 0) {
-            alert(`Chưa có hằng số chuẩn cho Khối ${selectedKhoi} ${selectedGioitinh}. Vui lòng cập nhật trong phần quản lý hằng số.`);
+            alert(`Lỗi: Không tìm thấy hằng số chuẩn cho Khối ${selectedKhoi} ${selectedGioitinh}. Vui lòng kiểm tra lại cấu hình.`);
             return;
         }
 
@@ -270,21 +206,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const batXa = parseFloat(batXaInput.value);
         const chayNhanh = parseFloat(chayNhanhInput.value);
         const gapBung = parseFloat(gapBungInput.value);
-        const chayBenPhut = parseFloat(chayBenPhutInput.value);
-        const chayBenGiay = parseFloat(chayBenGiayInput.value);
+        const chayBenTongGiay = processChayBenInput(chayBenInput); // Process and get total seconds
         const gapThan = parseFloat(gapThanInput.value);
 
         // Basic input validation
-        if (isNaN(chieuCao) || isNaN(canNang) || isNaN(batXa) || isNaN(chayNhanh) || isNaN(gapBung) || isNaN(chayBenPhut) || isNaN(chayBenGiay) || isNaN(gapThan)) {
+        if (isNaN(chieuCao) || isNaN(canNang) || isNaN(batXa) || isNaN(chayNhanh) || isNaN(gapBung) || isNaN(chayBenTongGiay) || isNaN(gapThan)) {
             alert('Vui lòng nhập đầy đủ và chính xác các chỉ số.');
             return;
         }
+        if (chieuCao <= 0 || canNang <= 0 || batXa < 0 || chayNhanh <= 0 || gapBung < 0 || chayBenTongGiay <= 0 || gapThan < 0) {
+            alert('Các chỉ số phải lớn hơn 0 (trừ Gập bụng, Gập thân có thể bằng 0).');
+            return;
+        }
+
 
         // --- Calculate BMI ---
         const bmi = calculateBMI(chieuCao, canNang);
-
-        // --- Convert Chay Ben to total seconds ---
-        const chayBenTongGiay = (chayBenPhut * 60) + chayBenGiay;
 
         // --- Calculate Z-Scores ---
         // 'reverse = true' for metrics where a lower value is better (e.g., time)
@@ -324,13 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ketQuaSection.style.display = 'block'; // Show results section
     });
 
-    // === 5. Event Listeners for Admin Section ===
-    adminKhoiSelect.addEventListener('change', updateAdminUI);
-    adminGioitinhSelect.addEventListener('change', updateAdminUI);
-    btnLuuCapNhatChuan.addEventListener('click', LuuVaCapNhatChuan);
-    btnTaiHangSoDaLuu.addEventListener('click', updateAdminUI); // 'Tải' ở đây thực chất là 'hiển thị' dữ liệu đã tải từ localStorage lên form
-
-    // === 6. Initial Load ===
-    loadStandardConstants(); // Load all saved constants when the page first loads
-    updateAdminUI(); // Update admin UI with current selected defaults (e.g., Khối 8 Nam)
+    // === 6. Initial Setup ===
+    // Initialize Chay Ben input format
+    processChayBenInput(chayBenInput);
 });
