@@ -228,8 +228,8 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Vui lòng nhập đầy đủ và chính xác các chỉ số.');
             return;
         }
-        if (chieuCao <= 0 || canNang <= 0 || batXa < 0 || chayNhanh <= 0 || gapBung < 0 || chayBenTongGiay <= 0 || gapThan < 0) {
-            alert('Các chỉ số phải lớn hơn 0 (trừ Gập bụng, Gập thân có thể bằng 0).');
+        if (chieuCao <= 0 || canNang <= 0 || batXa < 0 || chayNhanh <= 0 || gapBung < 0 || chayBenTongGiay <= 0) {
+            alert('Các chỉ số phải lớn hơn 0 (trừ Gập thân).');
             return;
         }
 
@@ -279,4 +279,5 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Chay Ben input format
     processChayBenInput(chayBenInput);
 });
+
 
